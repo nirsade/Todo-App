@@ -32,7 +32,7 @@ describe('Actinos', () => {
         var res = actions.toggleShowCompleted();
 
         expect(res).toEqual(action)
-    })
+    });
 
     it('should generate toggle todo', () => {
         var action ={
@@ -43,6 +43,25 @@ describe('Actinos', () => {
         var res = actions.toggleTodo(action.id);
 
         expect(res).toEqual(action)
-    })
-    
+    });
+  
+    it('should generate ADD_TODOS action', () => {
+        var todos = [
+            {
+                id: 11,
+                text: 'Hello',
+                completed: false,
+                completedAt: undefined,
+                createdAt: 158
+            }
+        ];
+
+        var action = {
+            type: 'ADD_TODOS',
+            todos
+        }
+
+        var res = actions.addTodos(todos);
+        expect(res).toEqual(action);
+    });
 })

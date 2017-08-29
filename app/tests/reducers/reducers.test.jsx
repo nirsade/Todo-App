@@ -31,41 +31,45 @@ describe('Reducers', () => {
         it('should add new todo', () => {
             var action = {
                 type: 'ADD_TODO',
-                text: 'new TODO'
+                todo: {
+                    id: '1',
+                    text: 'this is a new Todo',
+                    completed: false,
+                    createdAt: 100020
+                }
             };
             var res = reducers.todoReducer(df([]), df(action));
 
             expect(res.length).toEqual(1);
 
-            expect(res[0].text).toEqual(action.text);
+            expect(res[0]).toEqual(action.todo);
         });
 
-        it('should change the todo show completed property', () => {
+        it('should update todo', () => {
             var todos = [
                 {
                     id: 1,
                     text: 'first',
-                    completed: false,
+                    completed: true,
                     createdAt: 123,
                     completedAt: 125            
-                },
-                {
-                    id: 2,
-                    text: 'second',
-                    completed: true,
-                    createdAt: 122,
-                    completedAt: 124            
                 }
             ];
+            var updates = {
+                completed: false,
+                completedAt: null
+            }
             var action = {
-                type: 'TOGGLE_TODO',
-                id: 2
+                type: 'UPDATE_TODO',
+                id: todos[0].id,
+                updates
             }
 
-            var res = reducers.todoReducer(todos, action);
+            var res = reducers.todoReducer(df(todos), df(action));
 
-            expect(res[1].completed).toEqual(false);
-            expect(res[1].completedAt).toEqual(undefined);
+            expect(res[0].completed).toEqual(updates.completed);
+            expect(res[0].completedAt).toEqual(updates.completedAt);
+            expect(res[0].text).toEqual(todos[0].text);
         });
 
         it('should add existing todos', () => {

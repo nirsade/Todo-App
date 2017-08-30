@@ -12,7 +12,10 @@ export var TodoList = React.createClass({
             
             if (filteredTodos.length === 0) {
                 return (
-                    <p className="container__message">Nothing To Do</p>
+                    <div className="container__message">
+                        <p>Nothing To Do ??  <a href="/#/todos/game">Play for fun</a></p>
+                    </div>
+                    
                 );
             }
             return filteredTodos.map((todo) => {
